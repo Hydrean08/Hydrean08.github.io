@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chuck Anderson — IT Specialist & Developer</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:       #1A1C25;
+      --surface:  #22253200;
+      --surface2: #2a2d3a;
+      --accent:   #3AD2EB;
+      --accent2:  #2ab8cc;
+      --text:     #e8eaf0;
+      --text2:    #9da3b4;
+      --border:   #2e3245;
+      --radius:   10px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      line-height: 1.6;
+    }
+
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* NAV */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(26, 28, 37, 0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 60px;
+    }
+    .nav-brand {
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: var(--accent);
+      letter-spacing: 0.02em;
+    }
+    .nav-links { display: flex; gap: 28px; }
+    .nav-links a {
+      color: var(--text2);
+      font-size: 0.9rem;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--accent); text-decoration: none; }
+
+    /* SECTIONS */
+    section { padding: 80px 24px; max-width: 1000px; margin: 0 auto; }
+
+    /* HERO */
+    #hero {
+      max-width: 100%;
+      padding: 100px 24px 80px;
+      text-align: center;
+      background: linear-gradient(180deg, #1e2130 0%, var(--bg) 100%);
+    }
+    .hero-inner { max-width: 700px; margin: 0 auto; }
+    .hero-tag {
+      display: inline-block;
+      background: rgba(58, 210, 235, 0.1);
+      color: var(--accent);
+      border: 1px solid rgba(58, 210, 235, 0.3);
+      border-radius: 20px;
+      padding: 4px 14px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+    h1 {
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      font-weight: 800;
+      line-height: 1.15;
+      margin-bottom: 16px;
+      color: var(--text);
+    }
+    h1 span { color: var(--accent); }
+    .hero-sub {
+      font-size: 1.1rem;
+      color: var(--text2);
+      max-width: 560px;
+      margin: 0 auto 36px;
+      line-height: 1.7;
+    }
+    .hero-btns { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+    .btn {
+      display: inline-block;
+      padding: 12px 26px;
+      border-radius: var(--radius);
+      font-size: 0.95rem;
+      font-weight: 600;
+      transition: all 0.2s;
+      cursor: pointer;
+    }
+    .btn-primary {
+      background: var(--accent);
+      color: #0d0f16;
+    }
+    .btn-primary:hover { background: var(--accent2); text-decoration: none; }
+    .btn-outline {
+      border: 1px solid var(--border);
+      color: var(--text);
+      background: transparent;
+    }
+    .btn-outline:hover { border-color: var(--accent); color: var(--accent); text-decoration: none; }
+
+    /* SECTION HEADERS */
+    .section-label {
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 8px;
+    }
+    h2 {
+      font-size: clamp(1.5rem, 3vw, 2rem);
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+    .section-desc {
+      color: var(--text2);
+      max-width: 560px;
+      margin-bottom: 48px;
+      font-size: 0.97rem;
+    }
+
+    /* ABOUT / SKILLS */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      align-items: start;
+    }
+    .about-text p { color: var(--text2); margin-bottom: 14px; line-height: 1.75; }
+    .about-text strong { color: var(--text); }
+
+    .skills-group { margin-bottom: 24px; }
+    .skills-group-label {
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 10px;
+    }
+    .skill-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+    .skill-tag {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 5px 12px;
+      font-size: 0.82rem;
+      color: var(--text2);
+    }
+
+    /* PROJECTS */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+      gap: 20px;
+    }
+    .project-card {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .project-card:hover {
+      border-color: var(--accent);
+      transform: translateY(-2px);
+    }
+    .project-icon { font-size: 1.8rem; margin-bottom: 14px; }
+    .project-name {
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+      color: var(--text);
+    }
+    .project-desc {
+      font-size: 0.85rem;
+      color: var(--text2);
+      line-height: 1.65;
+      margin-bottom: 16px;
+    }
+    .project-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 16px; }
+    .project-tag {
+      background: rgba(58, 210, 235, 0.08);
+      color: var(--accent);
+      border-radius: 4px;
+      padding: 2px 8px;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+    .project-links { display: flex; gap: 12px; }
+    .project-link {
+      font-size: 0.8rem;
+      color: var(--text2);
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      transition: color 0.2s;
+    }
+    .project-link:hover { color: var(--accent); text-decoration: none; }
+
+    /* EXPERIENCE */
+    .timeline { display: flex; flex-direction: column; gap: 28px; }
+    .timeline-item {
+      display: grid;
+      grid-template-columns: 140px 1fr;
+      gap: 24px;
+    }
+    .timeline-date {
+      font-size: 0.8rem;
+      color: var(--text2);
+      padding-top: 3px;
+      text-align: right;
+    }
+    .timeline-content {}
+    .timeline-title {
+      font-weight: 700;
+      font-size: 1rem;
+      margin-bottom: 2px;
+    }
+    .timeline-company {
+      font-size: 0.85rem;
+      color: var(--accent);
+      margin-bottom: 10px;
+    }
+    .timeline-bullets {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .timeline-bullets li {
+      font-size: 0.875rem;
+      color: var(--text2);
+      padding-left: 16px;
+      position: relative;
+      line-height: 1.6;
+    }
+    .timeline-bullets li::before {
+      content: '▸';
+      position: absolute;
+      left: 0;
+      color: var(--accent);
+      font-size: 0.7rem;
+      top: 3px;
+    }
+    .timeline-divider {
+      border: none;
+      border-top: 1px solid var(--border);
+    }
+
+    /* CONTACT */
+    #contact { text-align: center; }
+    .contact-links {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 36px;
+    }
+    .contact-link {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 14px 22px;
+      font-size: 0.9rem;
+      color: var(--text);
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .contact-link:hover { border-color: var(--accent); color: var(--accent); text-decoration: none; }
+    .contact-icon { font-size: 1.2rem; }
+
+    /* FOOTER */
+    footer {
+      border-top: 1px solid var(--border);
+      text-align: center;
+      padding: 24px;
+      font-size: 0.8rem;
+      color: var(--text2);
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 700px) {
+      .about-grid { grid-template-columns: 1fr; }
+      .timeline-item { grid-template-columns: 1fr; }
+      .timeline-date { text-align: left; padding-top: 0; }
+      .nav-links { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <span class="nav-brand">Chuck Anderson</span>
+  <div class="nav-links">
+    <a href="#about">About</a>
+    <a href="#projects">Projects</a>
+    <a href="#experience">Experience</a>
+    <a href="#contact">Contact</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div id="hero">
+  <div class="hero-inner">
+    <div class="hero-tag">Available for hire</div>
+    <h1>IT Specialist &amp;<br><span>Software Developer</span></h1>
+    <p class="hero-sub">
+      I fix computers, harden systems, and build software.
+      Founder of Anderson Dev Solutions — providing hands-on IT support and custom tools to individuals and small businesses.
+    </p>
+    <div class="hero-btns">
+      <a href="#projects" class="btn btn-primary">View My Work</a>
+      <a href="#contact" class="btn btn-outline">Get In Touch</a>
+    </div>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-label">About</div>
+  <h2>Background &amp; Skills</h2>
+  <p class="section-desc">Self-taught technician and developer with hands-on experience across IT support, Linux server administration, and full-stack development.</p>
+
+  <div class="about-grid">
+    <div class="about-text">
+      <p>
+        I'm Chuck Anderson, based in Powell, TN. I run <strong>Anderson Dev Solutions</strong>, a local IT services business focused on delivering honest, reliable tech support to individuals and small businesses.
+      </p>
+      <p>
+        My background spans both the hands-on hardware and software side of IT — diagnosing and repairing Windows PCs, securing networks, recovering data — and the developer side, where I build custom tools, automation scripts, and full-stack web applications.
+      </p>
+      <p>
+        I self-host and manage a personal homelab running <strong>30+ Docker containers</strong> on Fedora Linux, which has given me deep practical experience in networking, security, containerization, and systems administration.
+      </p>
+      <p>
+        I built the <strong>ADS Toolkit</strong> — a portable USB diagnostic and repair toolkit I use on real client visits — because the right tools make the difference.
+      </p>
+    </div>
+
+    <div class="skills-side">
+      <div class="skills-group">
+        <div class="skills-group-label">IT &amp; Systems</div>
+        <div class="skill-tags">
+          <span class="skill-tag">Windows 10/11</span>
+          <span class="skill-tag">Linux (Fedora)</span>
+          <span class="skill-tag">Hardware Repair</span>
+          <span class="skill-tag">Networking</span>
+          <span class="skill-tag">Security Hardening</span>
+          <span class="skill-tag">Docker</span>
+          <span class="skill-tag">Malware Removal</span>
+          <span class="skill-tag">Data Recovery</span>
+        </div>
+      </div>
+      <div class="skills-group">
+        <div class="skills-group-label">Development</div>
+        <div class="skill-tags">
+          <span class="skill-tag">Python</span>
+          <span class="skill-tag">JavaScript</span>
+          <span class="skill-tag">PowerShell</span>
+          <span class="skill-tag">Bash</span>
+          <span class="skill-tag">FastAPI</span>
+          <span class="skill-tag">React Native</span>
+          <span class="skill-tag">Node.js</span>
+          <span class="skill-tag">SQLite</span>
+        </div>
+      </div>
+      <div class="skills-group">
+        <div class="skills-group-label">Tools &amp; Platforms</div>
+        <div class="skill-tags">
+          <span class="skill-tag">Git / GitHub</span>
+          <span class="skill-tag">Cloudflare</span>
+          <span class="skill-tag">Android (ADB)</span>
+          <span class="skill-tag">Nginx</span>
+          <span class="skill-tag">Ollama (Local AI)</span>
+          <span class="skill-tag">VS Code</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="section-label">Projects</div>
+  <h2>Things I've Built</h2>
+  <p class="section-desc">A mix of IT tools, automation systems, and full-stack applications — most of which I use or have used in production.</p>
+
+  <div class="projects-grid">
+
+    <div class="project-card">
+      <div class="project-icon">🔧</div>
+      <div class="project-name">ADS Toolkit</div>
+      <div class="project-desc">
+        Portable USB diagnostic and repair toolkit for Windows and Linux PCs. Automates system diagnostics, malware scanning (1M+ hash database), security hardening, performance tuneup, and generates a branded HTML/PDF client report — all from a single USB drive.
+      </div>
+      <div class="project-tags">
+        <span class="project-tag">PowerShell</span>
+        <span class="project-tag">Bash</span>
+        <span class="project-tag">Python</span>
+        <span class="project-tag">Windows</span>
+        <span class="project-tag">Linux</span>
+      </div>
+      <div class="project-links">
+        <a class="project-link" href="https://github.com/Hydrean08/ads-toolkit" target="_blank">⬡ GitHub</a>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-icon">🎲</div>
+      <div class="project-name">D&amp;D Campaign Manager</div>
+      <div class="project-desc">
+        AI-powered tabletop RPG platform with a full game engine, multi-provider LLM support (OpenAI, Anthropic, Gemini, OpenRouter), combat system, NPC memory, fog-of-war map, character sheet, and session logging. Built as a mobile-friendly web app.
+      </div>
+      <div class="project-tags">
+        <span class="project-tag">Python</span>
+        <span class="project-tag">FastAPI</span>
+        <span class="project-tag">SQLite</span>
+        <span class="project-tag">AI/LLM</span>
+        <span class="project-tag">HTML/CSS/JS</span>
+      </div>
+      <div class="project-links">
+        <a class="project-link" href="https://github.com/Hydrean08/dnd-campaign-manager" target="_blank">⬡ GitHub</a>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-icon">🎵</div>
+      <div class="project-name">Aria — Music Manager</div>
+      <div class="project-desc">
+        Custom music library manager with Deezer integration, AI-powered weekly artist suggestions via local Ollama, automated playlist generation, and a web UI for browsing and managing a self-hosted music collection.
+      </div>
+      <div class="project-tags">
+        <span class="project-tag">Python</span>
+        <span class="project-tag">FastAPI</span>
+        <span class="project-tag">SQLite</span>
+        <span class="project-tag">Ollama</span>
+        <span class="project-tag">Docker</span>
+      </div>
+      <div class="project-links">
+        <a class="project-link" href="https://github.com/Hydrean08/aria" target="_blank">⬡ GitHub</a>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-icon">📺</div>
+      <div class="project-name">Orion — Media Automation</div>
+      <div class="project-desc">
+        AI-powered media stream scoring and automation platform. Uses a local LLM to rank and select the best available streams before falling back to heuristic scoring — reducing buffering and improving quality automatically.
+      </div>
+      <div class="project-tags">
+        <span class="project-tag">Python</span>
+        <span class="project-tag">FastAPI</span>
+        <span class="project-tag">Ollama</span>
+        <span class="project-tag">Docker</span>
+        <span class="project-tag">REST API</span>
+      </div>
+      <div class="project-links">
+        <a class="project-link" href="https://github.com/Hydrean08/orion" target="_blank">⬡ GitHub</a>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-icon">🍕</div>
+      <div class="project-name">Wheel of Food</div>
+      <div class="project-desc">
+        Android app on Google Play that helps users decide where to eat using a spinning wheel populated with nearby restaurants via the Google Places API. Includes AdMob integration and a privacy policy hosted on Cloudflare Pages.
+      </div>
+      <div class="project-tags">
+        <span class="project-tag">Android</span>
+        <span class="project-tag">Google Places API</span>
+        <span class="project-tag">AdMob</span>
+        <span class="project-tag">Google Play</span>
+      </div>
+      <div class="project-links">
+        <a class="project-link" href="https://github.com/Hydrean08/quicklytools" target="_blank">⬡ GitHub</a>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-icon">🚀</div>
+      <div class="project-name">LaunchCycle</div>
+      <div class="project-desc">
+        SaaS platform for generating landing pages. Express.js backend with a marketing-focused frontend. Demonstrates full-stack web development with API design and deployment through Cloudflare tunnels.
+      </div>
+      <div class="project-tags">
+        <span class="project-tag">Node.js</span>
+        <span class="project-tag">Express</span>
+        <span class="project-tag">JavaScript</span>
+        <span class="project-tag">Cloudflare</span>
+      </div>
+      <div class="project-links">
+        <a class="project-link" href="https://github.com/Hydrean08/LaunchCycle" target="_blank">⬡ GitHub</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="section-label">Experience</div>
+  <h2>Work History</h2>
+  <p class="section-desc">Hands-on IT work and independent software development.</p>
+
+  <div class="timeline">
+
+    <div class="timeline-item">
+      <div class="timeline-date">2025 — Present</div>
+      <div class="timeline-content">
+        <div class="timeline-title">Owner &amp; IT Technician</div>
+        <div class="timeline-company">Anderson Dev Solutions — Powell, TN</div>
+        <ul class="timeline-bullets">
+          <li>Provide on-site and remote IT support to individuals and small businesses in the Powell, TN area.</li>
+          <li>Perform PC diagnostics, malware removal, hardware repair, OS reinstalls, and performance optimization on Windows systems.</li>
+          <li>Conduct security audits and hardening: Defender configuration, firewall rules, AutoRun disable, Windows Update enforcement.</li>
+          <li>Built and maintain the ADS Toolkit — a portable USB diagnostic suite used on every client visit.</li>
+          <li>Assist clients with account recovery, mobile device setup, and application support.</li>
+        </ul>
+      </div>
+    </div>
+
+    <hr class="timeline-divider">
+
+    <div class="timeline-item">
+      <div class="timeline-date">Ongoing</div>
+      <div class="timeline-content">
+        <div class="timeline-title">Homelab Systems Administrator</div>
+        <div class="timeline-company">Self-hosted Infrastructure — Fedora 44 Linux</div>
+        <ul class="timeline-bullets">
+          <li>Deploy and manage 30+ Docker containers across a self-hosted Fedora Linux server including networking, security, and resource limits.</li>
+          <li>Administer services including Nextcloud, Jellyfin, Crafty Controller (Minecraft), Prowlarr, and custom-built applications.</li>
+          <li>Configure Cloudflare tunnels for secure external access without port exposure.</li>
+          <li>Monitor system health, manage backups, and respond to service incidents.</li>
+          <li>Built custom AI-assisted automation tools including media stream scoring and music recommendation systems.</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-label">Contact</div>
+  <h2>Let's Work Together</h2>
+  <p class="section-desc" style="margin: 0 auto 0;">
+    Available for IT support, contract development work, and full-time opportunities.
+    Based in Powell, TN — available remotely as well.
+  </p>
+  <div class="contact-links">
+    <a class="contact-link" href="mailto:andersondevsolutions@gmail.com">
+      <span class="contact-icon">✉️</span>
+      andersondevsolutions@gmail.com
+    </a>
+    <a class="contact-link" href="https://github.com/Hydrean08" target="_blank">
+      <span class="contact-icon">⬡</span>
+      github.com/Hydrean08
+    </a>
+    <a class="contact-link" href="https://www.facebook.com/profile.php?id=61590040897244" target="_blank">
+      <span class="contact-icon">📘</span>
+      Anderson Dev Solutions
+    </a>
+  </div>
+</section>
+
+<footer>
+  <p>© 2026 Chuck Anderson · Anderson Dev Solutions · Powell, TN</p>
+</footer>
+
+</body>
+</html>
